@@ -35,12 +35,14 @@ try:
 #         print("[INFO] Table created successfully")
 
 # inserting new data into an existing table
-    with connection.cursor() as cursor:
-        cursor.execute(
-            """ INSERT INTO users (first_name, nick_name) VALUES
-            ('Oleg', 'Barracuda');"""
-        )
-        print("[INFO] Data was successfully inserted")
+#     with connection.cursor() as cursor:
+#         cursor.execute(
+#             """ INSERT INTO users (first_name, nick_name) VALUES
+#             ('Oleg', 'Barracuda'),
+#             ('Maria', 'Sunflower'),
+#             ('Ivan', 'Tiger');"""
+#         )
+#         print("[INFO] Data was successfully inserted")
 
 # printing data from an existing table
     with connection.cursor() as cursor:
@@ -48,6 +50,22 @@ try:
             """SELECT nick_name FROM users WHERE first_name = 'Oleg';"""
         )
         print(cursor.fetchone())
+
+
+# getting column names from table
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'")
+        table_name = (cursor.fetchall()[0])[0]  # получаю имя таблицы в базе
+        query = "SELECT column_name FROM information_schema.columns WHERE table_name = '" + table_name + "'"
+        cursor.execute(query)
+        column_names = [row[0] for row in cursor.fetchall()]  # получаю список столбцов
+        print("column_names: ", column_names)
+
+        # getting number of rows
+        cursor.execute("SELECT COUNT(*) FROM " + table_name)
+        print("Count = ", cursor.fetchone()[0])
+        cursor.execute("SELECT * FROM " + table_name)
+        print("all: ", cursor.fetchall())
 
 # deleting an existing table
 #     with connection.cursor() as cursor:
