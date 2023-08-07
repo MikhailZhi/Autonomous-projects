@@ -9,7 +9,7 @@ a = 7
 b = 4
 print('a =', a, ' b =', b)  # printing values
 print('a + b = ', a + b)  # printing summ
-print('a * b = ', a * b)
+print('a * b = ', a * b)  # printing multiplication
 print('a - b = ', a - b)
 print('a / b = ', a / b, '\n')
 print('a % b = ', a % b)
